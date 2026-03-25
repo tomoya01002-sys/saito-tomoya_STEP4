@@ -10,27 +10,28 @@
     <h1>フォーム入力</h1>
 
     <form action="confirm.php" method="post">
-      <label>名前:</label>
-      <input type="text" name="name" id="name">
+      <label for="name">名前:</label>
+      <input type="text" name="name" id="name" required>
 
-      <label>年齢:</label>
-      <!-- textに変更（要件対応） -->
-      <input type="text" name="age" id="age">
+      <label for="age">年齢:</label>
+      <!-- number + 5歳以上に統一 -->
+      <input type="number" name="age" id="age" min="5" max="150" required>
 
-      <label>電話番号:</label>
-      <input type="text" name="phone" id="phone">
+      <label for="phone">電話番号:</label>
+      <input type="text" name="phone" id="phone" placeholder="090-1234-5678" required>
 
-      <label>メールアドレス:</label>
-      <input type="text" name="email" id="email">
+      <label for="email">メールアドレス:</label>
+      <input type="email" name="email" id="email" placeholder="sample@gmail.com" required>
 
-      <label>住所:</label>
-      <input type="text" name="address" id="address">
+      <label for="address">住所:</label>
+      <input type="text" name="address" id="address" required>
 
-      <label>質問:</label>
+      <label for="question">質問:</label>
       <input type="text" name="question" id="question">
 
-      <label>性別:</label>
-      <select name="gender" id="gender">
+      <label for="gender">性別:</label>
+      <select name="gender" id="gender" required>
+        <option value="">選択してください</option>
         <option value="男性">男性</option>
         <option value="女性">女性</option>
       </select>
