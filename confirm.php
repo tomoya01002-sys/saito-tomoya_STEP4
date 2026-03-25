@@ -1,62 +1,64 @@
 <?php
-$name = $_POST['name'] ?? '';
-$age = $_POST['age'] ?? '';
-$phone = $_POST['phone'] ?? '';
-$email = $_POST['email'] ?? '';
-$address = $_POST['address'] ?? '';
-$question = $_POST['question'] ?? '';
-$gender = $_POST['gender'] ?? '';
-
-$errors = [];
-
-// バリデーション
-if (!preg_match('/^[ぁ-んァ-ン一-龥a-zA-Z]+$/u', $name)) {
-  $errors[] = '名前の形式が不正です';
 }
 
-if (!is_numeric($age) || $age < 5 || $age > 150) {
-  $errors[] = '年齢は5〜150で入力してください';
+// 年齢チェック（5歳以上）
+if ($age === '') {
+  $errors[] = '年齢を入力してください';
+} elseif (!is_numeric($age)) {
+  $errors[] = '年齢は数字で入力してください';
+} elseif ($age < 5) {
+  $errors[] = '年齢は5歳以上で入力してください';
 }
 
-if (!preg_match('/^[0-9-]+$/', $phone)) {
-  $errors[] = '電話番号の形式が不正です';
+// 電話番号チェック
+if ($phone === '') {
+  $errors[] = '電話番号を入力してください';
+} elseif (!preg_match('/^[0-9-]+$/', $phone)) {
+  $errors[] = '電話番号は半角数字とハイフンで入力してください';
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $errors[] = 'メールアドレスの形式が不正です';
+// メールチェック
+if ($email === '') {
+  $errors[] = 'メールアドレスを入力してください';
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  $errors[] = '正しいメールアドレス形式で入力してください（例: sample@gmail.com）';
 }
 
-if (!preg_match('/^[ぁ-んァ-ン一-龥a-zA-Z0-9\-\s]+$/u', $address)) {
-  $errors[] = '住所の形式が不正です';
+// 住所チェック
+if ($address === '') {
+  $errors[] = '住所を入力してください';
+} elseif (!preg_match('/^[ぁ-んァ-ン一-龥a-zA-Z0-9\-\s]+$/u', $address)) {
+  $errors[] = '住所は日本語・英数字で入力してください';
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>入力内容確認</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="container">
-      <h1>入力内容確認</h1>
+<head>
+  <meta charset="UTF-8">
+  <title>入力内容確認</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>入力内容確認</h1>
 
-      <?php if (!empty($errors)): ?>
-        <ul class="error">
-          <?php foreach ($errors as $e): ?>
-            <li><?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8') ?></li>
-          <?php endforeach; ?>
-        </ul>
-      <?php else: ?>
-        <p>名前: <?= htmlspecialchars($name) ?></p>
-        <p>年齢: <?= htmlspecialchars($age) ?></p>
-        <p>電話番号: <?= htmlspecialchars($phone) ?></p>
-        <p>メールアドレス: <?= htmlspecialchars($email) ?></p>
-        <p>住所: <?= htmlspecialchars($address) ?></p>
-        <p>質問: <?= htmlspecialchars($question) ?></p>
-        <p>性別: <?= htmlspecialchars($gender) ?></p>
-      <?php endif; ?>
-    </div>
-  </body>
+    <?php if (!empty($errors)): ?>
+      <ul class="error">
+        <?php foreach ($errors as $e): ?>
+          <li><?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8') ?></li>
+        <?php endforeach; ?>
+      </ul>
+    <?php else: ?>
+      <p>名前: <?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?></p>
+      <p>年齢: <?= htmlspecialchars($age, ENT_QUOTES, 'UTF-8') ?></p>
+      <p>電話番号: <?= htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') ?></p>
+      <p>メールアドレス: <?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?></p>
+      <p>住所: <?= htmlspecialchars($address, ENT_QUOTES, 'UTF-8') ?></p>
+      <p>質問: <?= htmlspecialchars($question, ENT_QUOTES, 'UTF-8') ?></p>
+      <p>性別: <?= htmlspecialchars($gender, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
+  </div>
+</body>
 </html>
+
